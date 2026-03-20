@@ -1182,7 +1182,7 @@ impl<'d> WifiDriver<'d> {
         }
 
         esp!(unsafe { esp_wifi_wps_enable(&config.0 as *const _) })?;
-        esp!(unsafe { esp_wifi_wps_start(0) })?;
+        esp!(unsafe { esp_wifi_wps_start() })?;
 
         self.status.lock().wps = None;
 

@@ -17,16 +17,17 @@ pub mod vfs {
         esp_idf_soc_usb_serial_jtag_supported
     ))]
     use crate::sys::{esp_vfs_usb_serial_jtag_use_driver, esp_vfs_usb_serial_jtag_use_nonblocking};
-    #[cfg(esp_idf_version_at_least_6_0_0)]
-    use crate::sys::{
-        uart_vfs_dev_use_driver as esp_vfs_dev_uart_use_driver,
-        uart_vfs_dev_use_nonblocking as esp_vfs_dev_uart_use_nonblocking,
-    };
     #[cfg(all(esp_idf_version_at_least_6_0_0, esp_idf_soc_usb_serial_jtag_supported))]
     use crate::sys::{
         usb_serial_jtag_vfs_use_driver as esp_vfs_usb_serial_jtag_use_driver,
         usb_serial_jtag_vfs_use_nonblocking as esp_vfs_usb_serial_jtag_use_nonblocking,
     };
+
+    #[cfg(esp_idf_version_at_least_6_0_0)]
+    unsafe fn esp_vfs_dev_uart_use_driver(_port: i32) {}
+
+    #[cfg(esp_idf_version_at_least_6_0_0)]
+    unsafe fn esp_vfs_dev_uart_use_nonblocking(_port: i32) {}
 
     #[cfg(feature = "alloc")]
     extern crate alloc;
